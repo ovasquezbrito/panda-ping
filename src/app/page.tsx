@@ -1,42 +1,61 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query"
-import { RecentPost } from "./components/post"
-import { client } from "./lib/client"
+import React from "react"
+import MaxWidthWrapper from "./components/max-width-wrapper"
+import Heading from "./components/heading"
+import { Check } from "lucide-react"
+import ShinyButton from "./components/shiny-button"
 
-export default async function Home() {
-  const res = await client.post.recent.$get()
-  const recentPost = await res.json()
-
-  /**
-   * This is the intended way to prefetch data on the server to have it immediately available in the client.
-   * But: you could also just pass the post as a prop instead of using the `HydrationBoundary`
-   */
-  const queryClient = new QueryClient()
-
-  await queryClient.prefetchQuery({
-    queryFn: () => recentPost,
-    queryKey: ["get-recent-post"],
-  })
-
+const Page = () => {
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-medium font-heading tracking-tight sm:text-[5rem]">
-            <span className="text-brand-700">j</span>stack
-          </h1>
-
-          <p className="text-center max-w-prose text-balance">
-            The modern way to confidently ship high-performance, low-cost
-            Next.js apps. End-to-end typesafe with an incredible DX.
-          </p>
-
-          <RecentPost />
-        </div>
-      </main>
-    </HydrationBoundary>
+    <>
+      <section className="relative py-24 s:py-32 bg-brand-25">
+        <MaxWidthWrapper className="text-center">
+          <div className="relative mx-auto text-center flex flex-col items-center gap-10">
+            <div>
+              <Heading>
+                <span>Información sobre SaaS en tiempo real</span>
+                <br />
+                <span className="relative bg-gradient-to-r from-brand-700 to-brand-800 text-transparent bg-clip-text">
+                  Entregado a tu discord
+                </span>
+              </Heading>
+            </div>
+            <p className="text-base/7 text-gray-600 max-w-prose text-center text-pretty">
+            PingPanda es la forma más sencilla de monitorear su SaaS. Obtener instantáneo
+            notificaciones para{" "}
+              <span className="font-semibold text-gray-700">
+              ventas, nuevos usuarios o cualquier otro evento 
+              </span> {" "}
+              enviado directamente a tu Discord.
+            </p>
+            <ul className="space-y-2 text-base/7 text-gray-600 text-left flex flex-col items-start">
+              {[
+                "Monitorear las ventas de tu SaaS",
+                "Nuevos usuarios",
+                "Notificaciones de eventos",
+              ].map((item, index) => (
+                <li
+                  key={index}
+                  className="flex gap-1.5 items-center text-left" 
+                >
+                  <Check className="size-5 shrink-0 text-brand-700"/>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="w-full max-w-80">
+              <ShinyButton>
+                Comenzar
+              </ShinyButton>
+            </div>
+          </div>
+        </MaxWidthWrapper>
+      </section>
+      <section></section>
+      <section></section>
+      <section></section>
+      <section></section>
+    </>
   )
 }
+
+export default Page
