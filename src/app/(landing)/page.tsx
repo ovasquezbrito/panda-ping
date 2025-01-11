@@ -5,6 +5,8 @@ import Heading from "@/components/heading"
 import ShinyButton from "@/components/shiny-button"
 import MockDiscordUI from "@/components/mock-discord-ui"
 import MaxWidthWrapper from "@/components/max-width-wrapper"
+import { AnimatedList, AnimatedListItem } from "@/components/ui/animated-list"
+import DiscordMessage from "@/components/discord-message"
 
 const Page = () => {
   return (
@@ -58,7 +60,23 @@ const Page = () => {
         <div className="relative mx-auto">
           <MaxWidthWrapper>
             <div className="-m-2 rouded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-              <MockDiscordUI></MockDiscordUI>
+              <MockDiscordUI>
+                <AnimatedList>
+                  <DiscordMessage 
+                    username="PingPanda"
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avatarAlt="PingPanda"
+                    title="🧑 Nuevo Usuario"
+                    timestamp="2023-03-23"
+                    badgeText="Registrate"
+                    badgeColor="#43b581"
+                    content={{
+                      name: "Oduber Vasques",
+                      email: "GZM0s@example.com",
+                    }}
+                  />
+                </AnimatedList>
+              </MockDiscordUI>
             </div>
           </MaxWidthWrapper>
         </div>
